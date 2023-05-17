@@ -6,7 +6,7 @@ const Footer = () => {
       <section className="text-white gap-2 grid grid-cols-1 lg:grid-cols-5 lg:mb-8">
         <div>
           <h2 className="font-extrabold tracking-wide text-xl pb-1">
-            Elite Employment
+            Bella Italia
           </h2>
           <p className="font-semibold text-lg pb-1">About Us</p>
           <p className="font-semibold text-lg pb-1">Latest News</p>
@@ -65,10 +65,10 @@ const Footer = () => {
       <hr />
       <div className="lg:flex lg:justify-between items-center mt-12 mb-16 text-white">
         <p className="font-semibold font-mono text-lg pb-1">
-          @2023 Elite Employment. All Rights Reserved
+          @2023 Bella Italia. All Rights Reserved
         </p>
         <p className="font-semibold font-serif text-lg pb-1">
-          Powered by Elite Employment
+          Powered by Bella Italia
         </p>
       </div>
       <div className="absolute top-0 left-0 w-full h-full bg-slate-950 opacity-30"></div>

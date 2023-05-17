@@ -1,7 +1,12 @@
 import React, { useContext, useState } from "react";
-import { FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../provider/AuthProvider";
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext, auth } from "../provider/AuthProvider";
+import {
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 const Login = () => {
   const [passError, setPassError] = useState("");
@@ -9,7 +14,13 @@ const Login = () => {
   const [open, setOpen] = useState(false);
   const [getEmail, setEmail] = useState("");
 
-  const { signIn, signInWithGoogle } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const { user, loading, setLoading, setUser, gitHubSignIn } =
+    useContext(AuthContext);
 
   const toggle = () => {
     setOpen(!open);
@@ -22,10 +33,13 @@ const Login = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    signIn(email, password)
+
+    signInWithEmailAndPassword(auth, email, password)
       .then((res) => {
+        setLoading(true);
         const user = res.user;
-        console.log(user);
+        setUser(user);
+        // console.log(user);
         setSuccess(true);
         form.reset();
         navigate(from, { replace: true });
@@ -36,11 +50,14 @@ const Login = () => {
         console.error(e);
       });
   };
-  const emailBlur = (event) => {
-    let email = event.target.value;
-    setEmail(email);
-  };
+
+  // const emailBlur = (event) => {
+  //   let email = event.target.value;
+  //   setEmail(email);
+  // };
+
   const resetPassword = () => {
+    setLoading(true);
     passwordReset(getEmail)
       .then(() => {
         alert("please check your given mail to reset password");
@@ -53,8 +70,31 @@ const Login = () => {
       });
   };
 
+  const googleProvider = new GoogleAuthProvider();
   const handleGoogleSignIn = () => {
-    signInWithGoogle();
+    setLoading(true);
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  };
+
+  const handleGitHub = () => {
+    setLoading(true);
+    gitHubSignIn()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   };
 
   return (
@@ -88,7 +128,6 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
-                  onBlur={emailBlur}
                   placeholder="email"
                   name="email"
                   className="input input-bordered"
@@ -132,7 +171,8 @@ const Login = () => {
                     <FaGoogle></FaGoogle> <span>google</span>
                   </span>
                 </button>
-                <button className="btn btn-primary">
+
+                <button onClick={handleGitHub} className="btn btn-primary">
                   <span className="flex justify-center space-x-3">
                     <FaGithub></FaGithub> <span>github</span>
                   </span>

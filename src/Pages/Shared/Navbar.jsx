@@ -1,5 +1,9 @@
 import React, { useContext, useState } from "react";
-import { FaBeer } from "react-icons/fa";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
+import { FaBars } from "react-icons/fa";
+import { HiX, HiMenuAlt2 } from "react-icons/hi";
+import { FcPodiumWithSpeaker } from "react-icons/fc";
 import { Link, NavLink } from "react-router-dom";
 import photo from "../../../public/bella-logo-6D39E2FA2C-seeklogo.com.svg";
 import { AuthContext } from "../../provider/AuthProvider";
@@ -7,19 +11,24 @@ import { AuthContext } from "../../provider/AuthProvider";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { user, setLoading, logOut } = useContext(AuthContext);
   console.log(user);
+
+  const handleLogOut = () => {
+    setLoading(true);
+    logOut();
+  };
 
   return (
     <div className="bg-purple-100 px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
         {/* Logo Section */}
         <Link to="/" className="inline-flex items-center">
-          <FaBeer className="h-6 w-6 text-purple-500" />
-          <span className="ml-2 text-2xl font-bold tracking-wide text-gray-800">
+          <FcPodiumWithSpeaker className="h-6 w-6 text-purple-500" />
+          <span className="ml-2 text-2xl font-bold tracking-wide text-purple-900">
             Bella Italia
           </span>
-          <div className="w-10 rounded-full">
+          <div className="w-10 mx-2 rounded-full">
             <img src={photo} />
           </div>
         </Link>
@@ -59,12 +68,27 @@ const Navbar = () => {
             </NavLink>
           </li>
           {user && (
-            <li>
-              <div className="w-10 rounded-full">
-                <p className=""> {user.email} </p>
-                {/* <img src={photo} /> */}
-              </div>
-            </li>
+            <>
+              <li>
+                <h6 id="userName" className="font-bold text-purple-800">
+                  {user.displayName}
+                </h6>
+              </li>
+              <li>
+                <div className="w-10">
+                  <img
+                    id="userPhoto"
+                    className="rounded-full"
+                    src={user.photoURL}
+                    alt=""
+                  />
+                  <Tooltip
+                    anchorSelect="#userPhoto"
+                    content={user.displayName}
+                  ></Tooltip>
+                </div>
+              </li>
+            </>
           )}
           <li>
             {user ? (
@@ -72,7 +96,7 @@ const Navbar = () => {
                 to="/register"
                 className={({ isActive }) => (isActive ? "active" : "default")}
               >
-                <button>Logout</button>
+                <button onClick={handleLogOut}>Logout</button>
               </NavLink>
             ) : (
               <NavLink
@@ -92,7 +116,7 @@ const Navbar = () => {
             title="Open Menu"
             onClick={() => setIsMenuOpen(true)}
           >
-            <FaBeer className="w-5 text-gray-600" />
+            <HiMenuAlt2 className="w-5 text-gray-600" />
           </button>
           {isMenuOpen && (
             <div className="absolute top-0 left-0 w-full z-10">
@@ -101,9 +125,9 @@ const Navbar = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <Link to="/" className="inline-flex items-center">
-                      <FaBeer className="h-6 w-6 text-blue-500" />
+                      <FcPodiumWithSpeaker className="h-6 w-6 text-blue-500" />
                       <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        nextPage
+                        Bella Italia
                       </span>
                     </Link>
                   </div>
@@ -114,7 +138,7 @@ const Navbar = () => {
                       title="Close Menu"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      <FaBeer className="w-5 text-gray-600" />
+                      <HiX className="w-5 text-gray-600" />
                     </button>
                   </div>
                 </div>
@@ -149,6 +173,27 @@ const Navbar = () => {
                       >
                         Register
                       </Link>
+                    </li>
+                    <li>
+                      {user ? (
+                        <NavLink
+                          to="/register"
+                          className={({ isActive }) =>
+                            isActive ? "active" : "default"
+                          }
+                        >
+                          <button onClick={handleLogOut}>Logout</button>
+                        </NavLink>
+                      ) : (
+                        <NavLink
+                          to="/login"
+                          className={({ isActive }) =>
+                            isActive ? "active" : "default"
+                          }
+                        >
+                          <button>Login</button>
+                        </NavLink>
+                      )}
                     </li>
                   </ul>
                 </nav>

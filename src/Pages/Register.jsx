@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
-import { AuthContext } from "../provider/AuthProvider";
+import { AuthContext, auth } from "../provider/AuthProvider";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
   const [passError, setPassError] = useState("");
@@ -9,12 +10,13 @@ const Register = () => {
   const [open, setOpen] = useState(false);
   const [weak, setWeak] = useState(false);
 
-  const { createUser } = useContext(AuthContext);
+  const { loading, setLoading, user, setUser } = useContext(AuthContext);
 
   const toggle = () => {
     setOpen(!open);
   };
   const passCheck = (event) => {
+    setLoading(true);
     const pass = event.target.value;
     if (pass.length >= 6) {
       setWeak(!weak);
@@ -42,32 +44,33 @@ const Register = () => {
       setPassError("Please use number");
       return;
     }
-    createUser(email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((res) => {
+        setLoading(true);
         const user = res.user;
-        console.log(user);
         setSuccess(true);
+        setUser(user);
+        // console.log(user);
         form.reset();
-        HandleUpdate(name, img);
+        // HandleUpdate(name, img);
       })
       .catch((error) => {
         const errorMessage = error.message;
         setPassError(errorMessage);
         console.error(error);
       });
-    const HandleUpdate = (name, img) => {
-      const data = {
-        displayName: name,
-        photoURL: img,
-      };
-      updateUserProfile(data)
-        .then(() => {})
-        .catch((e) => console.error(e));
-    };
+    // const HandleUpdate = (name, img) => {
+    //   const data = {
+    //     displayName: name,
+    //     photoURL: img,
+    //   };
+    //   updateUserProfile(data)
+    //     .then(() => {})
+    //     .catch((e) => console.error(e));
+    // };
     console.log(name, email, password);
   };
 
-  
   return (
     <div className="">
       <form onSubmit={handleRegister} className="hero min-h-screen bg-base-200">

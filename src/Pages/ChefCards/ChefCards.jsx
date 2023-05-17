@@ -10,14 +10,22 @@ const ChefCards = ({ props }) => {
         <img src={chef_img} alt="Chef-Image" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title"> {name} </h2>
-        <p> Likes: {likes} </p>
-        <p> Recipes: {numbers_of_rec} </p>
-        <p> Experience: {years_of_exp} </p>
-        <p> ID: {id} </p>
+        <h2 className="card-title text-blue-700 font-bold text-2xl ">
+          {" "}
+          {name}{" "}
+        </h2>
+        <p className="text-lg text-blue-500 font-semibold"> Likes: {likes} </p>
+        <p className="text-xl font-medium text-amber-500">
+          {" "}
+          Recipes: {numbers_of_rec}{" "}
+        </p>
+        <p className="text-xl font-medium text-blue-400">
+          {" "}
+          Experience: {years_of_exp}{" "}
+        </p>
         <div className="card-actions justify-end">
           <Link to={`/${id}`}>
-            <button className="btn btn-primary">View Details</button>
+            <button className="btn btn-primary">View Recipes</button>
           </Link>
         </div>
       </div>
