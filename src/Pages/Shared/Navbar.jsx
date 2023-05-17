@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaBeer } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
+import photo from "../../../public/bella-logo-6D39E2FA2C-seeklogo.com.svg";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { user } = useContext(AuthContext);
+  console.log(user);
+
   return (
     <div className="bg-purple-100 px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
@@ -11,8 +17,11 @@ const Navbar = () => {
         <Link to="/" className="inline-flex items-center">
           <FaBeer className="h-6 w-6 text-purple-500" />
           <span className="ml-2 text-2xl font-bold tracking-wide text-gray-800">
-            Elite Employment
+            Bella Italia
           </span>
+          <div className="w-10 rounded-full">
+            <img src={photo} />
+          </div>
         </Link>
 
         {/* Nav Items Section */}
@@ -49,13 +58,30 @@ const Navbar = () => {
               Register
             </NavLink>
           </li>
+          {user && (
+            <li>
+              <div className="w-10 rounded-full">
+                <p className=""> {user.email} </p>
+                {/* <img src={photo} /> */}
+              </div>
+            </li>
+          )}
           <li>
-            <NavLink
-              to="/loader"
-              className={({ isActive }) => (isActive ? "active" : "default")}
-            >
-              <span className="btn">Start Apply</span>
-            </NavLink>
+            {user ? (
+              <NavLink
+                to="/register"
+                className={({ isActive }) => (isActive ? "active" : "default")}
+              >
+                <button>Logout</button>
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/login"
+                className={({ isActive }) => (isActive ? "active" : "default")}
+              >
+                <button>Login</button>
+              </NavLink>
+            )}
           </li>
         </ul>
         {/* Mobile Navbar Section */}
