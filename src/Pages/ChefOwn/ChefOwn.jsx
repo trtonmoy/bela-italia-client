@@ -9,12 +9,20 @@ const ChefOwn = ({ chef }) => {
         <img src={chef_img} alt="Chef-Image" className="rounded-xl" />
       </figure>
       <div className="card-body items-center text-center">
-        <h2 className="card-title"> {name} </h2>
-        <p> Bio : {bio} </p>
-        <p> Likes : {likes} </p>
-        <p> Number of recipes : {numbers_of_rec} </p>
-        <p> Experience : {years_of_exp} </p>
-        
+        <h2 className="text-2xl font-bold text-purple-800"> {name} </h2>
+        <p className="text-lg text-blue-500 font-semibold "> Bio : {bio} </p>
+        <p className="text-lg font-semibold text-slate-500 ">
+          {" "}
+          Likes : {likes}{" "}
+        </p>
+        <p className="text-lg font-medium text-slate-500">
+          {" "}
+          Number of recipes : {numbers_of_rec}{" "}
+        </p>
+        <p className="text-xl font-medium text-slate-500">
+          {" "}
+          Experience : {years_of_exp}{" "}
+        </p>
       </div>
     </div>
   );

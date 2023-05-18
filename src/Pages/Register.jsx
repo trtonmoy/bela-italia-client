@@ -36,7 +36,7 @@ const Register = () => {
       setPassError("password does not matched!");
     }
     if (!/[A-Z]/.test(password)) {
-      setPassError("Please use uppercase character.");
+      setPassError("Please use an uppercase character.");
       return;
     }
 
@@ -86,7 +86,7 @@ const Register = () => {
               </ul>
             </p>
             <p className="text-red-500">
-              Password must contain one uppercase,one digit and 6 character
+              Password must contain an Uppercase, a Digit and 6 characters
               long!!{" "}
               <progress
                 className={`progress w-56 ${

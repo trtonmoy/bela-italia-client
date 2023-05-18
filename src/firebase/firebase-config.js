@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAcQmkqZHKeBbavZZjDuDwzDIjti0VMLxw",
-  authDomain: "bella-italia-e9f2f.firebaseapp.com",
-  projectId: "bella-italia-e9f2f",
-  storageBucket: "bella-italia-e9f2f.appspot.com",
-  messagingSenderId: "707267944346",
-  appId: "1:707267944346:web:f306f231eb75344e9ee423",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase

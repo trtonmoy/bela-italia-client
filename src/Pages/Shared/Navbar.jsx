@@ -75,6 +75,7 @@ const Navbar = () => {
                   />
                   <Tooltip
                     anchorSelect="#userPhoto"
+                    place="top"
                     content={user.displayName}
                   ></Tooltip>
                 </div>

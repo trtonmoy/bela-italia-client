@@ -4,6 +4,7 @@ import ChefCards from "../ChefCards/ChefCards";
 import Breakfast from "../Breakfast/Breakfast";
 import Dinner from "../Dinner/Dinner";
 import map from "../../../public/Screenshot (100).png";
+import Banner from "../Banner/Banner";
 
 const Home = () => {
   const [breakfast, setBreakfast] = useState([]);
@@ -24,7 +25,13 @@ const Home = () => {
   const data = useLoaderData();
   // console.log(data);
   return (
-    <section>
+    <section className="mt-8">
+      <div className="bg-purple-300 py-40 mb-32 lg:relative">
+        <h1 className="text-6xl bg-red-200 py-40 px-40 rounded-md text-red-600 font-bold text-center pt-4 tracking-wider lg:absolute -bottom-20 left-32">
+          Welcome To Bella Italia
+        </h1>
+      </div>
+      <Banner></Banner>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 my-8">
         {data.map((item) => (
           <ChefCards key={item.id} props={item}></ChefCards>
@@ -75,7 +82,7 @@ const Home = () => {
           </div>
           <div className="p-4 bg-white rounded">
             <h2 className="text-red-600 my-2 font-bold text-2xl tracking-wide">
-              Branch - 1
+              Branch - 2
             </h2>
             <p className="text-blue-500 my-2 font-semibold text-xl ">
               Location : Bari{" "}
@@ -89,7 +96,7 @@ const Home = () => {
           </div>
           <div className="p-4 bg-white rounded">
             <h2 className="text-red-600 my-2 font-bold text-2xl tracking-wide">
-              Branch - 1
+              Branch - 3
             </h2>
             <p className="text-blue-500 my-2 font-semibold text-xl ">
               Location : Terni{" "}
@@ -103,7 +110,7 @@ const Home = () => {
           </div>
           <div className="p-4 bg-white rounded">
             <h2 className="text-red-600 my-2 font-bold text-2xl tracking-wide">
-              Branch - 1
+              Branch - 4
             </h2>
             <p className="text-blue-500 my-2 font-semibold text-xl ">
               Location : Florence{" "}
