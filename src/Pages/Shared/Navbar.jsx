@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import { FaBars } from "react-icons/fa";
 import { HiX, HiMenuAlt2 } from "react-icons/hi";
 import { FcPodiumWithSpeaker } from "react-icons/fc";
 import { Link, NavLink } from "react-router-dom";
@@ -41,14 +40,6 @@ const Navbar = () => {
               className={({ isActive }) => (isActive ? "active" : "default")}
             >
               Home
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/login"
-              className={({ isActive }) => (isActive ? "active" : "default")}
-            >
-              Log In
             </NavLink>
           </li>
           <li>

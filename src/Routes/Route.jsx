@@ -8,6 +8,7 @@ import ChefDetails from "../Pages/ChefDetails/ChefDetails";
 import Error from "../Pages/Error/Error";
 import PrivateRoute from "./PrivateRoute";
 import Spinner from "../Pages/Spinner/Spinner";
+import Blog from "../Pages/Blog/Blog";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/blog",
+        element: <Blog></Blog>,
       },
       {
         path: "/loader",
